@@ -17,7 +17,7 @@
 
 
 module purge
-module load gcc/4.9.2
+module load GCC/10.3.0
 
 export OMP_NUM_THREADS=16
 
