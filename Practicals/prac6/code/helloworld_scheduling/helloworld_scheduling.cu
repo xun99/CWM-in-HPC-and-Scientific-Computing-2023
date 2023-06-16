@@ -36,7 +36,9 @@
 // dim3 data type has three components: x, y, z
 
 // write your kernel here
-
+__global__ void helloworld_blocks(void){
+  printf("Hello world from block %d!\n", blockIdx.x);
+}
 //----------------------------------------------------------------------
 
 
@@ -49,7 +51,9 @@
 // pre-set variables threadIdx, blockIdx, blockDim and gridDim.
 
 // write your kernel here
-
+__global__ void helloworld_threads(void){
+  printf("Hello world from block %d, thread %d!\n", blockIdx.x, threadIdx.x);
+}
 //----------------------------------------------------------------------
 
 
@@ -70,7 +74,13 @@
 // from 32 threads.
 
 // write your kernel here
-
+__global__ void helloworld_warps(void){
+  if(threadIdx.x%32==0) {
+    int warpIdx = threadIdx.x/32;
+    printf("Hello world from block %d, warp %d!\n", blockIdx.x, warpIdx);
+  }
+  
+}
 //----------------------------------------------------------------------
 
 
@@ -98,7 +108,7 @@ int main(void) {
   // dimensional or full three dimensional call using dim3 data type.
   
   // put your code here
-  
+  //helloworld_blocks<<<10,1>>>();
   //----------------------------------------------------------------------
 
   //----------------------------------------------------------------------
@@ -113,7 +123,7 @@ int main(void) {
   // dimensional or full three dimensional call using dim3 data type.
   
   // put your code here
-  
+  //helloworld_threads<<<5,10>>>();
   //----------------------------------------------------------------------
   
   
@@ -131,7 +141,7 @@ int main(void) {
   // dimensional or full three dimensional call using dim3 data type.
   
   // put your code here
-  
+  helloworld_warps<<<5,320>>>();
   //----------------------------------------------------------------------
   
   cudaDeviceReset();
